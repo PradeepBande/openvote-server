@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const checkAuth = require('./utils/checkAuth')
 
 // bring routes
-
+const adminRoutes = require('')
 const port = process.env.PORT || 4001;
 const app = express();
 
