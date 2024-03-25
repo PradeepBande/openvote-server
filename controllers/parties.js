@@ -1,5 +1,5 @@
-const Party = require('../models/party.js')
-const { upload } = require('./files');
+const Party = require('../models/parties.js')
+const { upload } = require('./files.js');
 const moment= require("moment")
 
 exports.addParty = async (req, res) => {

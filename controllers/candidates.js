@@ -35,7 +35,9 @@ exports.addCandidate = async (req, res) => {
 }
 
 exports.getCandidates = async(req, res) => {
-    let candidates = await Candidate.find({}).exec()
+    let candidates = await Candidate.find({})
+    .populate('party')
+    .exec()
     return res.json({
         code:'success',
         candidates,

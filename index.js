@@ -8,7 +8,7 @@ const checkAuth = require('./utils/checkAuth')
 // bring routes
 const adminRoutes = require('./routes/admins')
 const citiesRoutes = require('./routes/cities')
-const partyRoutes = require('./routes/party')
+const partyRoutes = require('./routes/parties')
 const candidateRoutes = require('./routes/candidates')
 
 const port = process.env.PORT || 4001;
