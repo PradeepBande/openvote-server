@@ -7,6 +7,8 @@ const checkAuth = require('./utils/checkAuth')
 
 // bring routes
 const adminRoutes = require('./routes/admins')
+const citiesRoutes = require('./routes/cities')
+const partyRoutes = require('./routes/party')
 
 const port = process.env.PORT || 4001;
 const app = express();
@@ -21,38 +23,38 @@ app.use(fileupload()) // express file uplaod
 mongoose.set('strictQuery', false);
 // db
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-   .then(() => console.log('DB connected'))
-   .catch(err => console.log(err));
+    .then(() => console.log('DB connected'))
+    .catch(err => console.log(err));
 
 // routes middleware
 
 //public data serve
 app.use('/api/admins', adminRoutes)
+app.use('/api/cities', citiesRoutes)
+app.use('/api/party', partyRoutes)
 app.use('/api/images', express.static('images'))
 app.use('/api/articles', express.static('uploads'))
 
 
 app.get('/', (req, res) => {
-   res.json({ message: "Cfropsy server is running" })
+    res.json({ message: "Cfropsy server is running" })
 })
 
 //Invalid route handling
 app.use((req, res, next) => {
-   const error = new Error('Not Found')
-   error.status = 404
-   next(error)
+    const error = new Error('Not Found')
+    error.status = 404
+    next(error)
 })
 
 app.use((error, req, res, next) => {
-   res.status(error.status || 404)
-   res.json({
-      error: error.message
-   })
+    res.status(error.status || 404)
+    res.json({
+        error: error.message
+    })
 })
 
 // Server start
 app.listen(port, () => {
-//    const sha256 = require('sha256');
-//    console.log("Password--", sha256('Pradeep'))
-   console.log(`Server is running on port ${port}`);
+    console.log(`Server is running on port ${port}`);
 });
