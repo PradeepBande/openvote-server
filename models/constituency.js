@@ -8,6 +8,18 @@ const constituencySchema = new mongoose.Schema(
          trim: true,
          default: ''
       },
+      city: {
+         type: String,
+         default: ''
+      },
+      district: {
+         type: String,
+         default: ''
+      },
+      state: {
+         type: String,
+         default: '',
+      },
       created_at: {
          type: Date,
          default: moment(),

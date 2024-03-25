@@ -6,7 +6,8 @@ const mongoose = require('mongoose');
 const checkAuth = require('./utils/checkAuth')
 
 // bring routes
-const adminRoutes = require('')
+const adminRoutes = require('./routes/admins')
+
 const port = process.env.PORT || 4001;
 const app = express();
 
@@ -17,15 +18,16 @@ app.use(express.json())
 
 app.use(fileupload()) // express file uplaod
 
+mongoose.set('strictQuery', false);
 // db
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
    .then(() => console.log('DB connected'))
    .catch(err => console.log(err));
 
-
 // routes middleware
 
 //public data serve
+app.use('/api/admins', adminRoutes)
 app.use('/api/images', express.static('images'))
 app.use('/api/articles', express.static('uploads'))
 
@@ -50,7 +52,7 @@ app.use((error, req, res, next) => {
 
 // Server start
 app.listen(port, () => {
-   const sha256 = require('sha256');
-   console.log("Password--", sha256('Pradeep'))
+//    const sha256 = require('sha256');
+//    console.log("Password--", sha256('Pradeep'))
    console.log(`Server is running on port ${port}`);
 });

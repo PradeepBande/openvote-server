@@ -23,6 +23,22 @@ const candidateSchema = new mongoose.Schema(
             trim: true,
             required: true
         },
+        candidate_info: {
+            type: String,
+            default: ''
+        },
+        city: {
+            type: String,
+            default: ''
+        },
+        district: {
+            type: String,
+            default: ''
+        },
+        state: {
+            type: String,
+            default: '',
+        },
         created_at: {
             type: Date,
             default: moment(),
