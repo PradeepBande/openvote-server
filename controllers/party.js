@@ -30,3 +30,12 @@ exports.addParty = async (req, res) => {
         }
     })
 }
+
+exports.getParties = async(req, res) => {
+    let parties = await Party.find({}).exec()
+    return res.json({
+        code:'success',
+        parties,
+        status:200
+    })
+}

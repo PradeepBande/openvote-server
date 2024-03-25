@@ -9,6 +9,7 @@ const checkAuth = require('./utils/checkAuth')
 const adminRoutes = require('./routes/admins')
 const citiesRoutes = require('./routes/cities')
 const partyRoutes = require('./routes/party')
+const candidateRoutes = require('./routes/candidates')
 
 const port = process.env.PORT || 4001;
 const app = express();
@@ -32,12 +33,13 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
 app.use('/api/admins', adminRoutes)
 app.use('/api/cities', citiesRoutes)
 app.use('/api/party', partyRoutes)
+app.use('/api/candidates', candidateRoutes)
 app.use('/api/images', express.static('images'))
 app.use('/api/articles', express.static('uploads'))
 
 
 app.get('/', (req, res) => {
-    res.json({ message: "Cfropsy server is running" })
+    res.json({ message: "Openvote server is running" })
 })
 
 //Invalid route handling

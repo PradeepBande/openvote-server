@@ -1,8 +1,9 @@
-const Candidate = require('../models/candidate.js')
+const Candidate = require('../models/candidates')
 const { upload } = require('./files');
+const moment = require('moment')
 
 exports.addCandidate = async (req, res) => {
-    const { candidate_name } = req.body
+    const { candidate_name, candidate_info, city, district, state, party } = req.body
     let candidate_image_url = ''
     if (req?.files) {
         let { candidate_image } = req?.files
@@ -10,7 +11,10 @@ exports.addCandidate = async (req, res) => {
         name = moment().unix() + '-' + name
         candidate_image_url = await upload(name, candidate_image, 'candidates')
     }
-    let newCandidate = new Candidate({ candidate_image: candidate_image_url, candidate_name })
+    let newCandidate = new Candidate({
+        candidate_image: candidate_image_url, candidate_name,
+        candidate_info, city, district, state, party
+    })
 
     newCandidate.save(async (err, candidate) => {
         if (!err || candidate) {
@@ -27,5 +31,14 @@ exports.addCandidate = async (req, res) => {
                 err
             })
         }
+    })
+}
+
+exports.getCandidates = async(req, res) => {
+    let candidates = await Candidate.find({}).exec()
+    return res.json({
+        code:'success',
+        candidates,
+        status:200
     })
 }
