@@ -10,7 +10,7 @@ const resolutionSchema = new mongoose.Schema(
         },
         constituency: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Party',
+            ref: 'Constituency',
             trim: true,
             required: true
         },
