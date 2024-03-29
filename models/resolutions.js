@@ -8,11 +8,16 @@ const resolutionSchema = new mongoose.Schema(
             trim: true,
             default: ''
         },
+        resolution_info: {
+            type: String,
+            trim: true,
+            default: ''
+        },
         constituency: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Constituency',
             trim: true,
-            required: true
+            required:true
         },
         candidates: [{
             type: mongoose.Schema.Types.ObjectId,
@@ -31,10 +36,6 @@ const resolutionSchema = new mongoose.Schema(
         state: {
             type: String,
             default: '',
-        },
-        pincode: {
-            type: Number,
-            trim: true,
         },
         created_at: {
             type: Date,

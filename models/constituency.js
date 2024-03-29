@@ -3,7 +3,7 @@ const moment = require('moment')
 
 const constituencySchema = new mongoose.Schema(
    {
-      constituency_name: {
+      constituency: {
          type: String,
          trim: true,
          default: ''
@@ -12,9 +12,9 @@ const constituencySchema = new mongoose.Schema(
          type: String,
          default: ''
       },
-      district: {
-         type: String,
-         default: ''
+      union_territory: {
+         type: Boolean,
+         default: false
       },
       state: {
          type: String,
