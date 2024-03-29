@@ -23,6 +23,11 @@ const candidateSchema = new mongoose.Schema(
             trim: true,
             required: true
         },
+        constituency: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Constituency',
+            trim: true,
+        },
         candidate_info: {
             type: String,
             default: ''

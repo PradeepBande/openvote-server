@@ -3,7 +3,7 @@ const { upload } = require('./files');
 const moment = require('moment')
 
 exports.addCandidate = async (req, res) => {
-    const { candidate_name, candidate_info, city, district, state, party } = req.body
+    const { candidate_name, candidate_info, city, district, state, party, constituency } = req.body
     let candidate_image_url = ''
     if (req?.files) {
         let { candidate_image } = req?.files
@@ -13,7 +13,7 @@ exports.addCandidate = async (req, res) => {
     }
     let newCandidate = new Candidate({
         candidate_image: candidate_image_url, candidate_name,
-        candidate_info, city, district, state, party
+        candidate_info, city, district, state, party, constituency
     })
 
     newCandidate.save(async (err, candidate) => {
@@ -37,6 +37,7 @@ exports.addCandidate = async (req, res) => {
 exports.getCandidates = async(req, res) => {
     let candidates = await Candidate.find({})
     .populate('party')
+    .populate('constituency')
     .exec()
     return res.json({
         code:'success',
