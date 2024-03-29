@@ -31,10 +31,13 @@ exports.addResulotion = async (req, res) => {
 }
 
 exports.getResulotions = async (req, res) => {
-    let resulotions = await Resulotion.find({}).exec()
+    let resolutions = await Resulotion.find()
+    .populate('constituency')
+    .populate('candidates')
+    .exec()
     return res.json({
         code: 'success',
-        resulotions,
+        resolutions,
         status: 200
     })
 }
