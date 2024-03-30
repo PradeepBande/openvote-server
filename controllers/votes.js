@@ -6,10 +6,13 @@ exports.vote = async (req, res) => {
 
     let ipData = req.socket.remoteAddress.split(':');
     const ip_address = ipData[ipData.length - 1]
-
+    const { latitude, longitude } = location
     await VoteCount.findOneAndUpdate({ resolution, candidate, constituency }, { $inc: { 'count': 1 } }).exec();
 
-    let newVote = new Vote({ resolution, candidate, constituency })
+    let newVote = new Vote({
+        resolution, candidate, constituency,
+        ip_address, latitude, longitude
+    })
     newVote.save(async (err, vote) => {
         if (!err || vote) {
             VoteCount.find({ resolution, constituency }).exec((err, data) => {

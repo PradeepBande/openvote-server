@@ -44,7 +44,11 @@ const voteSchema = new mongoose.Schema(
             type: String,
             trim: true,
         },
-        location: {
+        latitude: {
+            type: String,
+            default: '',
+        },
+        longitude: {
             type: String,
             default: '',
         },
