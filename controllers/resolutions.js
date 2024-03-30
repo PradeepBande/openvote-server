@@ -71,8 +71,6 @@ exports.getResulotions = async (req, res) => {
 
 exports.getResulotionById = async (req, res) => {
     const { id } = req.params
-    console.log("Req", req.socket.remoteAddress);  
-    console.log("Req ip ", req.app)
     let resolution = await Resulotion.findById(id)
         .populate('constituency')
         .populate({

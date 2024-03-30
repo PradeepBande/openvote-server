@@ -16,7 +16,6 @@ exports.sendSms = (name, otp, to) => {
             from: process.env.TWILIO_FROM,
          })
          .then((message) => {
-            console.log(message.sid);
             resolve(true)
          })
          .catch((err) => {
