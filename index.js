@@ -12,6 +12,7 @@ const partyRoutes = require('./routes/parties')
 const candidateRoutes = require('./routes/candidates')
 const resolutionsRoutes = require('./routes/resolutions')
 const constituencyRoutes = require('./routes/constituency')
+const voteRoutes = require('./routes/votes')
 
 const port = process.env.PORT || 4001;
 const app = express();
@@ -38,6 +39,7 @@ app.use('/api/party', partyRoutes)
 app.use('/api/candidates', candidateRoutes)
 app.use('/api/resolutions', resolutionsRoutes)
 app.use('/api/constituency', constituencyRoutes)
+app.use('/api/votes', voteRoutes)
 
 app.use('/api/images', express.static('images'))
 app.use('/api/articles', express.static('uploads'))

@@ -3,12 +3,18 @@ const moment = require('moment')
 
 const voteSchema = new mongoose.Schema(
     {
-        name: {
-            type: String,
-            trim: true,
+        resolution: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Resolution',
             default: ''
         },
-        candidate_id: {
+        constituency: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Constituency',
+            trim: true,
+            required: true
+        },
+        candidate: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Candidate',
             trim: true,
@@ -28,6 +34,14 @@ const voteSchema = new mongoose.Schema(
         },
         pincode: {
             type: Number,
+            trim: true,
+        },
+        ip_address: {
+            type: String,
+            trim: true,
+        },
+        mac_address: {
+            type: String,
             trim: true,
         },
         location: {

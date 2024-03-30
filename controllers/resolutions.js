@@ -1,4 +1,5 @@
 const Resulotion = require('../models/resolutions.js')
+const VoteCount = require('../models/voteCount.js')
 
 exports.addResulotion = async (req, res) => {
     const { resolution_name, resolution_info, resolution_image,
@@ -14,11 +15,30 @@ exports.addResulotion = async (req, res) => {
 
     newResulotion.save(async (err, resulotion) => {
         if (!err || resulotion) {
-            return res.json({
-                code: 'success',
-                status: 200,
-                message: 'Resulotion added successfully'
-            })
+            let inserData = []
+            for (let candidate of candidates) {
+                inserData.push({
+                    constituency,
+                    resolution: resulotion?._id,
+                    candidate
+                })
+            }
+
+            VoteCount.insertMany(inserData)
+                .then((data) => {
+                    return res.json({
+                        code: 'success',
+                        status: 200,
+                        message: 'Resulotion added successfully'
+                    })
+                }).catch(async (err) => {
+                    await Resulotion.findByIdAndDelete(resulotion._id)
+                    return res.json({
+                        code: 'failed',
+                        status: 500,
+                        message: 'internal server error'
+                    })
+                })
         } else {
             return res.json({
                 code: 'failed',
@@ -51,7 +71,9 @@ exports.getResulotions = async (req, res) => {
 
 exports.getResulotionById = async (req, res) => {
     const { id } = req.params
-    let resolutions = await Resulotion.findById(id)
+    console.log("Req", req.socket.remoteAddress);  
+    console.log("Req ip ", req.app)
+    let resolution = await Resulotion.findById(id)
         .populate('constituency')
         .populate({
             path: 'candidates',
@@ -61,10 +83,9 @@ exports.getResulotionById = async (req, res) => {
             }
         })
         .exec()
-    console.log("Resolution --", resolutions)
     return res.json({
         code: 'success',
-        resolutions,
+        resolution,
         status: 200
     })
 }

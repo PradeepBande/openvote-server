@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const moment = require('moment')
 
-const voteSchema = new mongoose.Schema(
+const voteCountSchema = new mongoose.Schema(
     {
         resolution: {
             type: mongoose.Schema.Types.ObjectId,
@@ -11,13 +11,7 @@ const voteSchema = new mongoose.Schema(
         },
         constituency: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Party',
-            trim: true,
-            required: true
-        },
-        party: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Party',
+            ref: 'Constituency',
             trim: true,
             required: true
         },
@@ -35,4 +29,4 @@ const voteSchema = new mongoose.Schema(
     },
     { timestamp: true }
 );
-module.exports = mongoose.model('Vote', voteSchema);
+module.exports = mongoose.model('VoteCount', voteCountSchema);
